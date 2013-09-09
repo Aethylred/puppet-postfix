@@ -1,8 +1,14 @@
-# blank
+# puppet-postfix
 
-This is a blank puppet module.
+This is a puppet module for installing, configuring and managing the [postfix][1] message transfer agent.
 
-*NOTE:* Check README1st.markdown for usage of the blank puppet module template.
+# Intent
+
+The intention of this module is to provide a module that installs and configures postfix using a parametised class, rather than using custom template files.
+
+# Postfix vs. Sendmail
+
+There are many reasons to choose between [sendmail][2] and postfix, but in this case it was that the postfix configuration is a simple text file. The sendmail configuration has to be compiled, and this compilation step makes it difficult for Puppet to tell if a configuration change has been implemented, which in turn makes it difficult to create a module that is truly idempotent.
 
 # Licensing
 
@@ -52,20 +58,32 @@ To use a different Vagrant configuration, add a different base box to your colle
 
 ### Testing the Puppet module
 
-Vagrant will mount the module directory from the host as `/vagrant` within the VM, so to run the smoke tests, logged in as root on the VM run:
+Vagrant will mount the module directory from the host as `/vagrant` within the VM, and these have to be added to the Puppet configuration. Add the `/vagrant` directory to the Puppet `modulepath` in `/etc/puppet/puppet.conf` to the `[main]` block:
 
 ```
-$ puppet agent -t /vagrant/tests/init.pp
+modulepath = $confdir/modules:/usr/share/puppet/modules:/vagrant/
 ```
 
-More complex Puppet modules (i.e. those with dependencies on other Puppet modules) may require additional configuration, such as installing dependent puppet modules and adding the `/vagrant` directory to the Puppet `modulepath`.
+**Note:** the module path separator is : in POSIX and ; under Windows.
+
+
+To run the smoke tests, logged in as root on the VM run:
+
+```
+$ puppet apply /vagrant/tests/init.pp
+```
+
+More complex Puppet modules (i.e. those with dependencies on other Puppet modules) may require additional configuration, such as installing the dependencies and adding them to the Puppet configuration.
 
 # Gnu General Public License
 
-This file is part of the blank Puppet module.
+This file is part of the postfix Puppet module.
 
-The blank Puppet module is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+The postfix Puppet module is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-The blank Puppet module is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+The postfix Puppet module is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with the blank Puppet module.  If not, see <http://www.gnu.org/licenses/>.
+
+[1]:http://www.postfix.org/
+[2]:http://www.sendmail.com/sm/open_source/
