@@ -2,6 +2,8 @@
 
 This is a puppet module for installing, configuring and managing the [postfix][1] message transfer agent.
 
+[![Build Status](https://travis-ci.org/Aethylred/puppet-postfix.png)](https://travis-ci.org/Aethylred/puppet-postfix)
+
 # Intent
 
 The intention of this module is to provide a module that installs and configures postfix using a parametised class, rather than using custom template files.
@@ -62,13 +64,11 @@ To use a different Vagrant configuration, add a different base box to your colle
 
 ### Testing the Puppet module
 
-Vagrant will mount the module directory from the host as `/vagrant` within the VM, and these have to be added to the Puppet configuration. Add the `/vagrant` directory to the Puppet `modulepath` in `/etc/puppet/puppet.conf` to the `[main]` block:
+Vagrant will mount the module directory from the host as `/vagrant` within the VM, and these have to be added to the Puppet configuration. The simplest method is to link the `/vagrant` directory into the puppet modules directory (replace *<modulename\>* with the module's name):
 
 ```
-modulepath = $confdir/modules:/usr/share/puppet/modules:/vagrant/
+$ ln -s /vagrant /etc/puppet/modules/<modulename>
 ```
-
-**Note:** the module path separator is : in POSIX and ; under Windows.
 
 
 To run the smoke tests, logged in as root on the VM run:
