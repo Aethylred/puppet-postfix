@@ -10,6 +10,10 @@ The intention of this module is to provide a module that installs and configures
 
 There are many reasons to choose between [sendmail][2] and postfix, but in this case it was that the postfix configuration is a simple text file. The sendmail configuration has to be compiled, and this compilation step makes it difficult for Puppet to tell if a configuration change has been implemented, which in turn makes it difficult to create a module that is truly idempotent.
 
+# Dependencies
+
+* `puppetlabs-stdlib`, on the [Puppet Forge][3] and at [GitHub][4]
+
 # Licensing
 
 Update your license details here.
@@ -87,3 +91,5 @@ You should have received a copy of the GNU General Public License along with the
 
 [1]:http://www.postfix.org/
 [2]:http://www.sendmail.com/sm/open_source/
+[3]:https://forge.puppetlabs.com/puppetlabs/stdlib
+[4]:https://github.com/puppetlabs/puppetlabs-stdlib
