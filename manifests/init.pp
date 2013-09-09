@@ -31,7 +31,7 @@ class postfix (
   $remove_sendmail = undef
 ) inherits postfix::params {
 
-  validate_bool($remove_sendmail)
+  # validate_bool($remove_sendmail)
   
   if $remove_sendmail {
     
