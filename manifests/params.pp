@@ -1,15 +1,9 @@
-# Class: postfix
+# Class: postfix::params
 #
-# This module manages postfix
-#
-# Parameters:
-#
-# Actions:
-#
-# Requires:
+# This module manages the global variables for the postfix puppet module
 #
 # Sample Usage:
-#
+# Do not use, this class is included as required by other postfix classes.
 
 # This file is part of the postfix Puppet module.
 #
@@ -27,22 +21,21 @@
 #     along with the postfix Puppet module.  If not, see <http://www.gnu.org/licenses/>.
 
 # [Remember: No empty lines between comments and class definition]
-class postfix (
-  $remove_sendmail = undef
-) inherits postfix::params {
-
-  validate_bool($remove_sendmail)
-  
-  if $remove_sendmail {
-    
-    service{$postfix::params::sendmail_service:
-      ensure => stopped,
-      before => Package[$postfix::params::sendmail_package]
+class postfix::params{
+  # Set OS family specific variables here, and test for supported OS families.
+  case $::osfamily{
+    Debian: {
+      $sendmail_ensure = 'purged'
     }
-    
-    package{$postfix::params::sendmail_package:
-      ensure => $postfix::params::sendmail_ensure,
+    RedHat: {
+      $sendmail_ensure = 'absent'
+    }
+    default: {
+      fail("The postfix module does not support the ${::osfamily} family of operating systems.")
     }
   }
-
+  
+  # Set OS independent varibles here
+  $sendmail_package = 'sendmail'
+  $sendmail_service = 'sendmail'
 }
