@@ -10,7 +10,7 @@ describe 'postfix', :type => :class do
     it { should include_class('postfix::params') }
     it { should contain_package('postfix') }
     it { should contain_service('postfix') }
-    it { should contain_file('config').with(
+    it { should contain_file('postfix_config').with(
       'ensure'  => 'file',
       'path'    => '/etc/postfix/main.cf'
     ) }
@@ -31,7 +31,7 @@ describe 'postfix', :type => :class do
     it { should include_class('postfix::params') }
     it { should contain_package('postfix') }
     it { should contain_service('postfix') }
-    it { should contain_file('config').with(
+    it { should contain_file('postfix_config').with(
       'ensure'  => 'file',
       'path'    => '/etc/postfix/main.cf'
     ) }
