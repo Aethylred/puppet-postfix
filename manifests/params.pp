@@ -25,10 +25,16 @@ class postfix::params{
   # Set OS family specific variables here, and test for supported OS families.
   case $::osfamily{
     Debian: {
-      $sendmail_ensure = 'purged'
+      $sendmail_ensure  = 'purged'
+      $package          = 'postfix'
+      $service          = 'postfix'
+      $config_file      = '/etc/postfix/main.cf'
     }
     RedHat: {
-      $sendmail_ensure = 'absent'
+      $sendmail_ensure  = 'absent'
+      $package          = 'postfix'
+      $service          = 'postfix'
+      $config_file      = '/etc/postfix/main.cf'
     }
     default: {
       fail("The postfix module does not support the ${::osfamily} family of operating systems.")

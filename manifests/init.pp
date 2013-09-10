@@ -42,7 +42,25 @@ class postfix (
     
     package{$postfix::params::sendmail_package:
       ensure => $postfix::params::sendmail_ensure,
+      before => Package['postfix'],
     }
+  }
+  
+  package{'postfix':
+    ensure  => installed,
+    name    => $postfix::params::package,
+  }
+  
+  service{'postfix':
+    ensure  => running,
+    enable  => true,
+    require => Package['postfix'],
+  }
+  
+  file{'config':
+    ensure  => file,
+    path    => $postfix::params::config_file,
+    notify  => Service['postfix'],
   }
 
 }
