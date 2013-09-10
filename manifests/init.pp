@@ -49,18 +49,20 @@ class postfix (
   package{'postfix':
     ensure  => installed,
     name    => $postfix::params::package,
-  }
-  
-  service{'postfix':
-    ensure  => running,
-    enable  => true,
-    require => Package['postfix'],
+    before  => File['config'],
   }
   
   file{'config':
     ensure  => file,
     path    => $postfix::params::config_file,
-    notify  => Service['postfix'],
+  }
+  
+  service{'postfix':
+    ensure      => running,
+    enable      => true,
+    hasstatus   => true,
+    hasrestart  => true,
+    subscribe   => File['config'],
   }
 
 }
