@@ -12,9 +12,38 @@ The intention of this module is to provide a module that installs and configures
 
 There are many reasons to choose between [sendmail][2] and postfix, but in this case it was that the postfix configuration is a simple text file. The sendmail configuration has to be compiled, and this compilation step makes it difficult for Puppet to tell if a configuration change has been implemented, which in turn makes it difficult to create a module that is truly idempotent.
 
-# Dependencies
+# Default Usage
 
-* `puppetlabs-stdlib`, on the [Puppet Forge][3] and at [GitHub][4]
+To install postfix with the default configuration:
+
+```puppet
+include postfix
+```
+
+# Configuration with Parameters
+
+The postfix class is parametric and allows a single declaration to configure the postfix service. At this stage it only configures a few settings to allow the set up of a SMTP relay that forwards all messages to another SMTP host. The following example replicates the default configuration:
+
+```puppet
+class {'postfix':
+	remove_sendmail => false,
+	myorigin			=>	undef,
+	relayhost			=> undef,
+	relayhost_port	=> undef,
+}
+	
+```
+
+## Parameters
+
+* `remove_sendmail` The sendmail service and packages will be removed from the system if this parameter is set to `true`. Default is `false`.
+
+* `myorigin` This sets the default domain part of all outgoing email as per the [postfix documentation](http://www.postfix.org/BASIC_CONFIGURATION_README.html#myorigin). The default is `undef`, which will revert to the system default which is the local hostname.
+
+* `relayhost` This sets the FQDN of the host through which email will be relayed to the internet as per the [postfix documentation](http://www.postfix.org/BASIC_CONFIGURATION_README.html#relayhost). The default is `undef`, which reverts to the system default of attempting to send email directly out through the Internet.
+
+* `relayhost_port` This sets the port for the relay host specified with the `relayhost` parameter. The default is `undef` which leaves the port specifier off the end of the relayhost setting. This parameter does nothing if the `relayhost` parameter is not set.
+
 
 # Licensing
 
@@ -91,5 +120,3 @@ You should have received a copy of the GNU General Public License along with the
 
 [1]:http://www.postfix.org/
 [2]:http://www.sendmail.com/sm/open_source/
-[3]:https://forge.puppetlabs.com/puppetlabs/stdlib
-[4]:https://github.com/puppetlabs/puppetlabs-stdlib
