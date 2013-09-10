@@ -72,6 +72,8 @@ class postfix (
     $myorigin_augeas = "rm myorigin"
   }
 
+  # relayhost could have just been a string with the port added to it
+  # but expressing relayhost_port as a separate parameter is a better abstraction
   if $relayhost {
     $relayhost_augeas = $relayhost_port ? {
       false   => "set relayhost ${relayhost}",

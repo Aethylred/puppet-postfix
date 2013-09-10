@@ -14,6 +14,12 @@ describe 'postfix', :type => :class do
       'ensure'  => 'file',
       'path'    => '/etc/postfix/main.cf'
     ) }
+    it { should contain_augeas('postfix_config') }
+    describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf' do
+      it 'should not make changes' do
+        should execute.idempotently
+      end
+    end
     describe 'with remove_sendmail => true' do
       let :params do
         { :remove_sendmail => true }
@@ -35,6 +41,12 @@ describe 'postfix', :type => :class do
       'ensure'  => 'file',
       'path'    => '/etc/postfix/main.cf'
     ) }
+    it { should contain_augeas('postfix_config') }
+    describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf' do
+      it 'should not make changes' do
+        should execute.idempotently
+      end
+    end
     describe 'with remove_sendmail => true' do
       let :params do
         { :remove_sendmail => true }
