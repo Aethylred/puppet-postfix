@@ -8,6 +8,12 @@ describe 'postfix', :type => :class do
       }
     end
     it { should include_class('postfix::params') }
+    it { should contain_package('postfix') }
+    it { should contain_service('postfix') }
+    it { should contain_file('config').with(
+      'ensure'  => 'file',
+      'path'    => '/etc/postfix/main.cf'
+    ) }
     describe 'with remove_sendmail => true' do
       let :params do
         { :remove_sendmail => true }
@@ -23,6 +29,12 @@ describe 'postfix', :type => :class do
         }
       end
     it { should include_class('postfix::params') }
+    it { should contain_package('postfix') }
+    it { should contain_service('postfix') }
+    it { should contain_file('config').with(
+      'ensure'  => 'file',
+      'path'    => '/etc/postfix/main.cf'
+    ) }
     describe 'with remove_sendmail => true' do
       let :params do
         { :remove_sendmail => true }
