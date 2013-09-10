@@ -34,8 +34,6 @@ class postfix (
   $relayhost_port   = undef
 ) inherits postfix::params {
 
-  # validate_bool($remove_sendmail)
-
   if $remove_sendmail {
 
     service{$postfix::params::sendmail_service:
@@ -52,10 +50,10 @@ class postfix (
   package{'postfix':
     ensure  => installed,
     name    => $postfix::params::package,
-    before  => File['config'],
+    before  => [File['postfix_config'],Augeas['postfix_config']],
   }
 
-  file{'config':
+  file{'postfix_config':
     ensure  => file,
     path    => $postfix::params::config_file,
   }
@@ -65,7 +63,7 @@ class postfix (
     enable      => true,
     hasstatus   => true,
     hasrestart  => true,
-    subscribe   => File['config'],
+    subscribe   => [File['postfix_config'],Augeas['postfix_config']]
   }
 
   if $myorigin {
@@ -83,7 +81,7 @@ class postfix (
     $relayhost_augeas = "rm relayhost"
   }
 
-  augeas { 'main.cf':
+  augeas { 'postfix_config':
     require => File['config'],
     context => '/files/etc/postfix/main.cf',
     changes => [
