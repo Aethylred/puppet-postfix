@@ -1,5 +1,5 @@
 name    'nesi-postfix'
-version '0.0.1'
+version '0.1.0'
 source 'https://github.com/Aethylred/puppet-postfix'
 author 'nesi'
 license 'GPL 3'
