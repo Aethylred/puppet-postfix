@@ -38,7 +38,7 @@ class postfix (
 
     service{$postfix::params::sendmail_service:
       ensure => stopped,
-      before => Package[$postfix::params::sendmail_package]
+      before => Package[$postfix::params::sendmail_packages]
     }
 
     package{$postfix::params::sendmail_packages:
