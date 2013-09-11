@@ -6,7 +6,7 @@ This is a puppet module for installing, configuring and managing the [postfix][1
 
 # Intent
 
-The intention of this module is to provide a module that installs and configures postfix using a parametised class, rather than using custom template files.
+The intention of this module is to provide a module that installs and configures postfix using a parametised class and augeas, rather than using custom template files. This included setting up appropriate rspec tests and smoke tests.
 
 # Postfix vs. Sendmail
 
