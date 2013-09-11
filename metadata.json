@@ -1,8 +1,8 @@
 {
-  "name": "aethylred-postfix",
+  "name": "Aethylred-postfix",
   "version": "0.1.0",
   "summary": "A Puppet module for installing and configuring the postfix message transfer agent.",
-  "author": "aethylred",
+  "author": "Aethylred",
   "description": "This Puppet Module installs and configures the postfix message transfer agent.\n\nInitially this will be a trivial install that set\u0027s up postfix as a relay agent.",
   "dependencies": [
     {
