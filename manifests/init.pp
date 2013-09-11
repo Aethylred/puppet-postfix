@@ -85,7 +85,6 @@ class postfix (
   }
 
   augeas { 'postfix_config':
-    require => File['config'],
     context => '/files/etc/postfix/main.cf',
     changes => [
       $myorigin_augeas,
