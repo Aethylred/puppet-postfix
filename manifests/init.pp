@@ -41,7 +41,7 @@ class postfix (
       before => Package[$postfix::params::sendmail_package]
     }
 
-    package{$postfix::params::sendmail_package:
+    package{$postfix::params::sendmail_packages:
       ensure => $postfix::params::sendmail_ensure,
       before => Package['postfix'],
     }
