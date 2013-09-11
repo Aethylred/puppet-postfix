@@ -17,7 +17,7 @@ describe 'postfix', :type => :class do
     it { should contain_augeas('postfix_config') }
     describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf' do
       it 'should not make changes' do
-        should execute.idempotently
+        should_not execute.with_change
       end
     end
     describe 'with remove_sendmail => true' do
@@ -43,9 +43,7 @@ describe 'postfix', :type => :class do
     ) }
     it { should contain_augeas('postfix_config') }
     describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf' do
-      it 'should not make changes' do
-        should execute.idempotently
-      end
+      it { should_not execute.with_change }
     end
     describe 'with remove_sendmail => true' do
       let :params do
