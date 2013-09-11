@@ -316,7 +316,7 @@ unknown_local_recipient_reject_code = 550
 #relayhost = [mailserver.isp.tld]
 #relayhost = uucphost
 #relayhost = [an.ip.add.ress]
-
+relayhost = smtp.example.com
 # REJECTING UNKNOWN RELAY USERS
 #
 # The relay_recipient_maps parameter specifies optional lookup tables
