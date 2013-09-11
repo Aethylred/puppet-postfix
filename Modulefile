@@ -1,7 +1,7 @@
-name    'aethylred-postfix'
+name    'Aethylred-postfix'
 version '0.1.0'
 source 'https://github.com/Aethylred/puppet-postfix'
-author 'aethylred'
+author 'Aethylred'
 license 'GPL 3'
 summary 'A Puppet module for installing and configuring the postfix message transfer agent.'
 description 'This Puppet Module installs and configures the postfix message transfer agent.
