@@ -38,7 +38,7 @@ describe 'postfix', :type => :class do
       end
       describe_augeas 'postfix_config', :lens => 'Postfix_Main.lns', :target => 'etc/postfix/main.cf' do
         it { should execute.with_change }
-        it 'should not match myorigin' do
+        it 'should match myorigin' do
           aug_get('myorigin').should == 'example.org'
         end
         it { should execute.idempotently }
@@ -50,8 +50,32 @@ describe 'postfix', :type => :class do
       end
       describe_augeas 'postfix_config', :lens => 'Postfix_Main.lns', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
         it { should execute.with_change }
-        it 'should not match myorigin' do
+        it 'should match myorigin' do
           aug_get('myorigin').should == 'example.org'
+        end
+        it { should execute.idempotently }
+      end
+    end
+    describe 'with relayhost => smtp.example.org and the default main.cf' do
+      let :params do
+        { :relayhost => 'smtp.example.org' }
+      end
+      describe_augeas 'postfix_config', :lens => 'Postfix_Main.lns', :target => 'etc/postfix/main.cf' do
+        it { should execute.with_change }
+        it 'should match relayhost' do
+          aug_get('relayhost').should == 'smtp.example.org'
+        end
+        it { should execute.idempotently }
+      end
+    end
+    describe 'with relayhost => smtp.example.org and a modified main.cf' do
+      let :params do
+        { :relayhost => 'smtp.example.org' }
+      end
+      describe_augeas 'postfix_config', :lens => 'Postfix_Main.lns', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
+        it { should execute.with_change }
+        it 'should match relayhost' do
+          aug_get('relayhost').should == 'smtp.example.org'
         end
         it { should execute.idempotently }
       end
@@ -115,6 +139,30 @@ describe 'postfix', :type => :class do
         it { should execute.with_change }
         it 'should match myorigin' do
           aug_get('myorigin').should == 'example.org'
+        end
+        it { should execute.idempotently }
+      end
+    end
+    describe 'with relayhost => smtp.example.org and the default main.cf' do
+      let :params do
+        { :relayhost => 'smtp.example.org' }
+      end
+      describe_augeas 'postfix_config', :lens => 'Postfix_Main.lns', :target => 'etc/postfix/main.cf' do
+        it { should execute.with_change }
+        it 'should match relayhost' do
+          aug_get('relayhost').should == 'smtp.example.org'
+        end
+        it { should execute.idempotently }
+      end
+    end
+    describe 'with relayhost => smtp.example.org and a modified main.cf' do
+      let :params do
+        { :relayhost => 'smtp.example.org' }
+      end
+      describe_augeas 'postfix_config', :lens => 'Postfix_Main.lns', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
+        it { should execute.with_change }
+        it 'should match relayhost' do
+          aug_get('relayhost').should == 'smtp.example.org'
         end
         it { should execute.idempotently }
       end
