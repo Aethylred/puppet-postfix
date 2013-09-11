@@ -21,8 +21,14 @@ describe 'postfix', :type => :class do
       end
     end
     describe 'working with a modified main.cf' do
-      describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
+      describe_augeas 'postfix_config', :lens    => 'Postfix_Main.lns', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
         it { should execute.with_change }
+        it 'should not match myorigin' do
+          should_not aug_get('myorigin')
+        end
+        it 'should not match relayhost' do
+          should_not aug_get('relayhost')
+        end
         it { should execute.idempotently }
       end
     end
@@ -54,8 +60,14 @@ describe 'postfix', :type => :class do
       end
     end
     describe 'working with a modified main.cf' do
-      describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
+      describe_augeas 'postfix_config', :lens    => 'Postfix_Main.lns', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
         it { should execute.with_change }
+        it 'should not match myorigin' do
+          should_not aug_get('myorigin')
+        end
+        it 'should not match relayhost' do
+          should_not aug_get('relayhost')
+        end
         it { should execute.idempotently }
       end
     end
