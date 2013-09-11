@@ -1,7 +1,7 @@
-name    'nesi-postfix'
+name    'aethylred-postfix'
 version '0.1.0'
 source 'https://github.com/Aethylred/puppet-postfix'
-author 'nesi'
+author 'aethylred'
 license 'GPL 3'
 summary 'A Puppet module for installing and configuring the postfix message transfer agent.'
 description 'This Puppet Module installs and configures the postfix message transfer agent.
