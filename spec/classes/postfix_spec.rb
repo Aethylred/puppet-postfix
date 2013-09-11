@@ -15,9 +15,15 @@ describe 'postfix', :type => :class do
       'path'    => '/etc/postfix/main.cf'
     ) }
     it { should contain_augeas('postfix_config') }
-    describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf' do
-      it 'should not make changes' do
-        should_not execute.with_change
+    describe 'working with the default main.cf' do
+      describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf' do
+        it { should_not execute.with_change }
+      end
+    end
+    describe 'working with a modified main.cf' do
+      describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
+        it { should execute.with_change }
+        it { should execute.idempotently }
       end
     end
     describe 'with remove_sendmail => true' do
@@ -42,8 +48,16 @@ describe 'postfix', :type => :class do
       'path'    => '/etc/postfix/main.cf'
     ) }
     it { should contain_augeas('postfix_config') }
-    describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf' do
-      it { should_not execute.with_change }
+    describe 'working with the default main.cf' do
+      describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf' do
+        it { should_not execute.with_change }
+      end
+    end
+    describe 'working with a modified main.cf' do
+      describe_augeas 'postfix_config', :target => 'etc/postfix/main.cf', :fixture => 'etc/postfix/main.modified.cf' do
+        it { should execute.with_change }
+        it { should execute.idempotently }
+      end
     end
     describe 'with remove_sendmail => true' do
       let :params do
