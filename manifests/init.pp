@@ -38,10 +38,16 @@ class postfix (
 
     service{$postfix::params::sendmail_service:
       ensure => stopped,
-      before => Package[$postfix::params::sendmail_packages]
+      before => Package[$postfix::params::sendmail_package]
     }
 
-    package{$postfix::params::sendmail_packages:
+    # sendmail-cf must be uninstalled first
+    package{$postfix::params::sendmailcf_package:
+      ensure => $postfix::params::sendmail_ensure,
+      before => Package[$postfix::params::sendmail_package],
+    }
+
+    package{$postfix::params::sendmail_package:
       ensure => $postfix::params::sendmail_ensure,
       before => Package['postfix'],
     }

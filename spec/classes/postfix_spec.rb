@@ -123,6 +123,7 @@ describe 'postfix', :type => :class do
       end
       it { should contain_service('sendmail').with_ensure('stopped') }
       it { should contain_package('sendmail').with_ensure('purged') }
+      it { should contain_package('sendmail-cf').with_ensure('purged') }
     end
     
   end
@@ -249,6 +250,7 @@ describe 'postfix', :type => :class do
       end
       it { should contain_service('sendmail').with_ensure('stopped') }
       it { should contain_package('sendmail').with_ensure('absent') }
+      it { should contain_package('sendmail-cf').with_ensure('absent') }
     end
     
   end

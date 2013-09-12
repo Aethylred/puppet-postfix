@@ -42,6 +42,7 @@ class postfix::params{
   }
   
   # Set OS independent varibles here
-  $sendmail_packages  = ['sendmail-cf','sendmail']
+  $sendmail_package   = 'sendmail'
+  $sendmailcf_package = 'sendmail-cf'
   $sendmail_service   = 'sendmail'
 }
