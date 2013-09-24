@@ -1,5 +1,5 @@
 name    'Aethylred-postfix'
-version '0.1.0'
+version '0.1.1'
 source 'https://github.com/Aethylred/puppet-postfix'
 author 'Aethylred'
 license 'GPL 3'

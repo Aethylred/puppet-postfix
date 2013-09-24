@@ -121,7 +121,7 @@ describe 'postfix', :type => :class do
       let :params do
         { :remove_sendmail => true }
       end
-      it { should contain_service('sendmail').with_ensure('stopped') }
+      it { should_not contain_service('sendmail').with_ensure('stopped') }
       it { should contain_package('sendmail').with_ensure('purged') }
       it { should contain_package('sendmail-cf').with_ensure('purged') }
     end
