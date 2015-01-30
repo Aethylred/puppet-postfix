@@ -1,18 +1,13 @@
 {
   "name": "Aethylred-postfix",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "summary": "A Puppet module for installing and configuring the postfix message transfer agent.",
   "author": "Aethylred",
   "description": "This Puppet Module installs and configures the postfix message transfer agent.\n\nInitially this will be a trivial install that set\u0027s up postfix as a relay agent.",
   "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": "4.1.0"
-    }
+     { "name": "puppetlabs/stdlib",      "version_requirement": ">=3.2.0 <5.0.0" }
   ],
-  "types": [],
-  "checksums": {},
   "source": "https://github.com/Aethylred/puppet-postfix",
   "project_page": "https://github.com/Aethylred/puppet-postfix",
-  "license": "GPL 3"
+  "license": "GPL-3.0"
 }
