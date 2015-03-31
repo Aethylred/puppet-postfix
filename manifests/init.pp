@@ -30,6 +30,7 @@
 class postfix (
   $remove_sendmail  = undef,
   $myorigin         = undef,
+  $mydestination    = undef,
   $relayhost        = undef,
   $relayhost_port   = undef
 ) inherits postfix::params {
@@ -85,6 +86,12 @@ class postfix (
     $myorigin_augeas = "rm myorigin"
   }
 
+  if $mydestination {
+    $mydestination_augeas = "set mydestination ${mydestination}"
+  } else {
+    $mydestination_augeas = "set mydestination localhost"
+  }
+
   # relayhost could have just been a string with the port added to it
   # but expressing relayhost_port as a separate parameter is a better abstraction
   if $relayhost {
@@ -102,6 +109,7 @@ class postfix (
     changes => [
       $myorigin_augeas,
       $relayhost_augeas,
+      $mydestination_augeas,
     ],
   }
 
