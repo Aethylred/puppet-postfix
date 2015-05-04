@@ -7,7 +7,7 @@ describe 'postfix', :type => :class do
         :osfamily => 'Debian',
       }
     end
-    it { should include_class('postfix::params') }
+    it { should contain_class('postfix::params') }
     it { should contain_package('postfix') }
     it { should contain_service('postfix') }
     it { should contain_file('postfix_config').with(
@@ -134,7 +134,7 @@ describe 'postfix', :type => :class do
           :osfamily => 'RedHat',
         }
       end
-    it { should include_class('postfix::params') }
+    it { should contain_class('postfix::params') }
     it { should contain_package('postfix') }
     it { should contain_service('postfix') }
     it { should contain_file('postfix_config').with(

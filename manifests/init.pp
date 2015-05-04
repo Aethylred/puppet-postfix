@@ -43,7 +43,7 @@ class postfix (
       }
       default: {
         service{$postfix::params::sendmail_service:
-          ensure => stopped,
+          ensure => 'stopped',
           before => Package[$postfix::params::sendmail_package]
         }
       }
@@ -62,34 +62,40 @@ class postfix (
   }
 
   package{'postfix':
-    ensure  => installed,
-    name    => $postfix::params::package,
-    before  => [File['postfix_config'],Augeas['postfix_config']],
+    ensure => 'installed',
+    name   => $postfix::params::package,
+    before => [
+      File['postfix_config'],
+      Augeas['postfix_config']
+    ],
   }
 
   file{'postfix_config':
-    ensure  => file,
-    path    => $postfix::params::config_file,
+    ensure => 'file',
+    path   => $postfix::params::config_file,
   }
 
   service{'postfix':
-    ensure      => running,
-    enable      => true,
-    hasstatus   => true,
-    hasrestart  => true,
-    subscribe   => [File['postfix_config'],Augeas['postfix_config']]
+    ensure     => 'running',
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+    subscribe  => [
+      File['postfix_config'],
+      Augeas['postfix_config']
+    ]
   }
 
   if $myorigin {
     $myorigin_augeas = "set myorigin ${myorigin}"
   } else {
-    $myorigin_augeas = "rm myorigin"
+    $myorigin_augeas = 'rm myorigin'
   }
 
   if $mydestination {
     $mydestination_augeas = "set mydestination ${mydestination}"
   } else {
-    $mydestination_augeas = "set mydestination localhost"
+    $mydestination_augeas = 'set mydestination localhost'
   }
 
   # relayhost could have just been a string with the port added to it
@@ -101,7 +107,7 @@ class postfix (
       $relayhost_augeas = "set relayhost ${relayhost}"
     }
   } else {
-    $relayhost_augeas = "rm relayhost"
+    $relayhost_augeas = 'rm relayhost'
   }
 
   augeas { 'postfix_config':
