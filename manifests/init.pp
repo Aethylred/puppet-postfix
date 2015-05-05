@@ -37,16 +37,9 @@ class postfix (
 
   if $remove_sendmail {
 
-    case $::osfamily {
-      Debian: {
-        # Ubuntu does nothing as the package handler gracefully stops the service
-      }
-      default: {
-        service{$postfix::params::sendmail_service:
-          ensure => 'stopped',
-          before => Package[$postfix::params::sendmail_package]
-        }
-      }
+    service{$postfix::params::sendmail_service:
+      ensure => 'stopped',
+      before => Package[$postfix::params::sendmail_package]
     }
 
     # sendmail-cf must be uninstalled first

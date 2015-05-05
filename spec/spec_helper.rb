@@ -1,4 +1,5 @@
 require 'puppetlabs_spec_helper/module_spec_helper'
+require 'rspec_puppet_osmash'
 
 RSpec.configure do |c|
 
@@ -21,7 +22,34 @@ RSpec.configure do |c|
   end
 end
 
-
 shared_examples :compile, :compile => true do
   it { should compile.with_all_deps }
+end
+
+$osmash = Rspec_puppet_osmash.new
+
+$osmash.supported.map! do | os |
+  expectations = {
+    'sendmail_package'   => 'sendmail',
+    'sendmailcf_package' => 'sendmail-cf',
+    'sendmail_service'   => 'sendmail'
+  }
+  case os['osfamily']
+  when 'Debian'
+    expectations.merge!( {
+      'sendmail_ensure'  => 'purged',
+      'package'          => 'postfix',
+      'service'          => 'postfix',
+      'config_file'      => '/etc/postfix/main.cf'
+    } )
+  when 'RedHat'
+    expectations.merge!( {
+      'sendmail_ensure'  => 'absent',
+      'package'          => 'postfix',
+      'service'          => 'postfix',
+      'config_file'      => '/etc/postfix/main.cf'
+    } )
+  end
+
+  os.merge( { 'expectations' => expectations } )
 end

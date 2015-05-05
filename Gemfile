@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 
 gem 'metadata-json-lint'
+gem 'rspec_puppet_osmash'
 gem 'puppetlabs_spec_helper', '>= 0.1.0'
 gem 'puppet-lint',            '>= 1.0.0'
 
 if puppetversion = ENV['PUPPET_GEM_VERSION']
-  gem 'puppet', puppetversion,  :require => false
+  gem 'puppet', puppetversion
 else
-  gem 'puppet',                 :require => false
+  gem 'puppet'
 end
 
 # rspec must be v2 for ruby 1.8.7
