@@ -20,6 +20,15 @@ describe 'postfix', :type => :class do
         it { should_not contain_service(os['expectations']['sendmail_service']) }
         it { should_not contain_package(os['expectations']['sendmail_package']) }
         it { should_not contain_package(os['expectations']['sendmailcf_package']) }
+        it { should contain_file('postfix_config').without_content(
+          %r{^myorigin = }
+        ) }
+        it { should contain_file('postfix_config').with_content(
+          %r{^mydestination = \$myhostname, localhost.\$mydomain, localhost$}
+        ) }
+        it { should contain_file('postfix_config').without_content(
+          %r{^relayhost =}
+        ) }
       end
 
       describe 'when removing sendmail' do
@@ -38,6 +47,45 @@ describe 'postfix', :type => :class do
         it { should_not contain_service(os['expectations']['sendmail_service']) }
         it { should_not contain_package(os['expectations']['sendmail_package']) }
         it { should_not contain_package(os['expectations']['sendmailcf_package']) }
+      end
+
+      describe 'when setting myorigin' do
+        let :params do
+          { :myorigin => 'example.org' }
+        end
+        it { should contain_file('postfix_config').with_content(
+          %r{^myorigin = example.org$}
+        ) }
+      end
+
+      describe 'when setting mydestination' do
+        let :params do
+          { :mydestination => 'example.org' }
+        end
+        it { should contain_file('postfix_config').with_content(
+          %r{^mydestination = example.org$}
+        ) }
+      end
+
+      describe 'when setting a relayhost without a port' do
+        let :params do
+          { :relayhost => 'example.org' }
+        end
+        it { should contain_file('postfix_config').with_content(
+          %r{^relayhost = example.org$}
+        ) }
+      end
+
+      describe 'when setting a relayhost with a port' do
+        let :params do
+          {
+            :relayhost      => 'example.org',
+            :relayhost_port => '444'
+          }
+        end
+        it { should contain_file('postfix_config').with_content(
+          %r{^relayhost = example.org:444$}
+        ) }
       end
 
     end

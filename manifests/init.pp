@@ -78,16 +78,4 @@ class postfix (
     ]
   }
 
-  # relayhost could have just been a string with the port added to it
-  # but expressing relayhost_port as a separate parameter is a better abstraction
-  if $relayhost {
-    if $relayhost_port {
-      $relayhost_str = "${relayhost}:${relayhost_port}"
-    } else {
-      $relayhost_str = $relayhost
-    }
-  } else {
-    $relayhost_str = undef
-  }
-
 }

@@ -325,7 +325,11 @@ unknown_local_recipient_reject_code = 550
 #relayhost = uucphost
 #relayhost = [an.ip.add.ress]
 <%- if @relayhost -%>
-relayhost = <%= @relayhost_str %>
+  <%- if @relayhost_port -%>
+relayhost = <%= @relayhost %>:<%= @relayhost_port %>
+  <%- else -%>
+relayhost = <%= @relayhost %>
+  <%- end -%>
 <%- end -%>
 
 # REJECTING UNKNOWN RELAY USERS
