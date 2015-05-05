@@ -16,7 +16,13 @@ describe 'postfix', :type => :class do
         'path'    => '/etc/postfix/main.cf'
       ) }
 
-      describe 'with remove_sendmail => true' do
+      describe 'with no parameters' do
+        it { should_not contain_service(os['expectations']['sendmail_service']) }
+        it { should_not contain_package(os['expectations']['sendmail_package']) }
+        it { should_not contain_package(os['expectations']['sendmailcf_package']) }
+      end
+
+      describe 'when removing sendmail' do
         let :params do
           { :remove_sendmail => true }
         end
@@ -24,6 +30,16 @@ describe 'postfix', :type => :class do
         it { should contain_package(os['expectations']['sendmail_package']).with_ensure(os['expectations']['sendmail_ensure']) }
         it { should contain_package(os['expectations']['sendmailcf_package']).with_ensure(os['expectations']['sendmail_ensure']) }
       end
+
+      describe 'when leaving sendmail alone' do
+        let :params do
+          { :remove_sendmail => false }
+        end
+        it { should_not contain_service(os['expectations']['sendmail_service']) }
+        it { should_not contain_package(os['expectations']['sendmail_package']) }
+        it { should_not contain_package(os['expectations']['sendmailcf_package']) }
+      end
+
     end
   end
   
