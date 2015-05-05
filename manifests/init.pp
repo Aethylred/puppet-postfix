@@ -65,14 +65,14 @@ class postfix (
     ensure => 'installed',
     name   => $postfix::params::package,
     before => [
-      File['postfix_config'],
-      Augeas['postfix_config']
+      File['postfix_config']
     ],
   }
 
   file{'postfix_config':
-    ensure => 'file',
-    path   => $postfix::params::config_file,
+    ensure  => 'file',
+    path    => $postfix::params::config_file,
+    content => template('postfix/main.cf.erb')
   }
 
   service{'postfix':
@@ -81,42 +81,20 @@ class postfix (
     hasstatus  => true,
     hasrestart => true,
     subscribe  => [
-      File['postfix_config'],
-      Augeas['postfix_config']
+      File['postfix_config']
     ]
-  }
-
-  if $myorigin {
-    $myorigin_augeas = "set myorigin ${myorigin}"
-  } else {
-    $myorigin_augeas = 'rm myorigin'
-  }
-
-  if $mydestination {
-    $mydestination_augeas = "set mydestination ${mydestination}"
-  } else {
-    $mydestination_augeas = 'set mydestination localhost'
   }
 
   # relayhost could have just been a string with the port added to it
   # but expressing relayhost_port as a separate parameter is a better abstraction
   if $relayhost {
     if $relayhost_port {
-      $relayhost_augeas = "set relayhost ${relayhost}:${relayhost_port}"
+      $relayhost_str = "${relayhost}:${relayhost_port}"
     } else {
-      $relayhost_augeas = "set relayhost ${relayhost}"
+      $relayhost_str = $relayhost
     }
   } else {
-    $relayhost_augeas = 'rm relayhost'
-  }
-
-  augeas { 'postfix_config':
-    context => '/files/etc/postfix/main.cf',
-    changes => [
-      $myorigin_augeas,
-      $relayhost_augeas,
-      $mydestination_augeas,
-    ],
+    $relayhost_str = undef
   }
 
 }

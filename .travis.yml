@@ -1,9 +1,5 @@
 language: ruby
-# sudo: false
-
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq augeas-tools augeas-lenses libaugeas-dev
+sudo: false
 
 before_script:
   - bundle exec metadata-json-lint metadata.json

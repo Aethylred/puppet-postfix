@@ -1,3 +1,5 @@
+# WARNING! This file is managed by Puppet, changes may be overwritten!
+#
 # Global Postfix configuration file. This file lists only a subset
 # of all parameters. For the syntax, and for a complete parameter
 # list, see the postconf(5) manual page (command: "man 5 postconf").
@@ -97,6 +99,9 @@ mail_owner = postfix
 #
 #myorigin = $myhostname
 #myorigin = $mydomain
+<%- if @myorigin -%>
+myorigin = <%= @myorigin %>
+<%- end -%>
 
 # RECEIVING MAIL
 
@@ -161,10 +166,14 @@ inet_protocols = all
 #
 # See also below, section "REJECTING MAIL FOR UNKNOWN LOCAL USERS".
 #
-mydestination = $myhostname, localhost.$mydomain, localhost
 #mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
 #mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain,
 #	mail.$mydomain, www.$mydomain, ftp.$mydomain
+<%- if @mydestination -%>
+mydestination = <%= @mydestination %>
+<%- else -%>
+mydestination = $myhostname, localhost.$mydomain, localhost
+<%- end -%>
 
 # REJECTING MAIL FOR UNKNOWN LOCAL USERS
 #
@@ -315,6 +324,9 @@ unknown_local_recipient_reject_code = 550
 #relayhost = [mailserver.isp.tld]
 #relayhost = uucphost
 #relayhost = [an.ip.add.ress]
+<%- if @relayhost -%>
+relayhost = <%= @relayhost_str %>
+<%- end -%>
 
 # REJECTING UNKNOWN RELAY USERS
 #
