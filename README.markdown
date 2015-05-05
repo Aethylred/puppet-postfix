@@ -37,11 +37,9 @@ class {'postfix':
 ## Parameters
 
 * `remove_sendmail` The sendmail service and packages will be removed from the system if this parameter is set to `true`. Default is `false`.
-
 * `myorigin` This sets the default domain part of all outgoing email as per the [postfix documentation](http://www.postfix.org/BASIC_CONFIGURATION_README.html#myorigin). The default is `undef`, which will revert to the system default which is the local hostname.
-
+* `mydestination` This sets the default domain part of all outgoing email as per the [postfix documentation](http://www.postfix.org/BASIC_CONFIGURATION_README.html#mydestination). The default is `undef`, which will revert to the system default which is `$myhostname localhost.$mydomain localhost`.
 * `relayhost` This sets the FQDN of the host through which email will be relayed to the internet as per the [postfix documentation](http://www.postfix.org/BASIC_CONFIGURATION_README.html#relayhost). The default is `undef`, which reverts to the system default of attempting to send email directly out through the Internet.
-
 * `relayhost_port` This sets the port for the relay host specified with the `relayhost` parameter. The default is `undef` which leaves the port specifier off the end of the relayhost setting. This parameter does nothing if the `relayhost` parameter is not set.
 
 
