@@ -42,11 +42,6 @@ class {'postfix':
 * `relayhost` This sets the FQDN of the host through which email will be relayed to the internet as per the [postfix documentation](http://www.postfix.org/BASIC_CONFIGURATION_README.html#relayhost). The default is `undef`, which reverts to the system default of attempting to send email directly out through the Internet.
 * `relayhost_port` This sets the port for the relay host specified with the `relayhost` parameter. The default is `undef` which leaves the port specifier off the end of the relayhost setting. This parameter does nothing if the `relayhost` parameter is not set.
 
-
-# Licensing
-
-Update your license details here.
-
 # Attribution
 
 ## `puppet-blank` for Puppet Module generation
@@ -58,53 +53,6 @@ This module is derived from the puppet-blank module by Aaron Hicks (aethylred@gm
 This module has been developed for the use with Open Source Puppet (Apache 2.0 license) for automating server & service deployment.
 
 * http://puppetlabs.com/puppet/puppet-open-source/
-
-## `puppet-bootstrap` for bootstrapping Puppet into Vagrant
-
-The Puppet bootstrap scripts are modified from the [Vagrant](http://www.vagrantup.com/) puppet-bootstrap scripts provided by Hashicorp.
-
-* https://github.com/hashicorp/puppet-bootstrap
-
-The current `Vagrantfile` is configured to use the box [CentOS NoCM Virtualbox](http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box) from the [PuppetLabs box repository](http://puppet-vagrant-boxes.puppetlabs.com/)
-
-### Using the current Vagrant configuration
-
-* Add the Vagrant box to your collection: 
-
-```
-$ vagrant box add centos-64-x64-vbox4210-nocm http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box
-``` 
-
-*  Start the box: 
-
-```
-$ vagrant up
-```
-
-### Changing the Vagrant configuration
-
-To use a different Vagrant configuration, add a different base box to your collection and edit the Vagrantfile to specify it. If the base OS of the box is different, specify the correct Puppet bootstrap script by altering the line:
-
-```ruby
-  config.vm.box = "centos-64-x64-vbox4210-nocm"
-```
-
-### Testing the Puppet module
-
-Vagrant will mount the module directory from the host as `/vagrant` within the VM, and these have to be added to the Puppet configuration. The simplest method is to link the `/vagrant` directory into the puppet modules directory (replace *<modulename\>* with the module's name):
-
-```
-$ ln -s /vagrant /etc/puppet/modules/<modulename>
-```
-
-
-To run the smoke tests, logged in as root on the VM run:
-
-```
-$ puppet apply /vagrant/tests/init.pp
-```
-
-More complex Puppet modules (i.e. those with dependencies on other Puppet modules) may require additional configuration, such as installing the dependencies and adding them to the Puppet configuration.
 
 # Licensing
 
