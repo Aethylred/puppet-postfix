@@ -29,12 +29,14 @@ class postfix::params{
       $package          = 'postfix'
       $service          = 'postfix'
       $config_file      = '/etc/postfix/main.cf'
+      $daemon_directory = '/usr/lib/postfix'
     }
     RedHat: {
       $sendmail_ensure  = 'absent'
       $package          = 'postfix'
       $service          = 'postfix'
       $config_file      = '/etc/postfix/main.cf'
+      $daemon_directory = '/usr/libexec/postfix'
     }
     default: {
       fail("The postfix module does not support the ${::osfamily} family of operating systems.")

@@ -29,6 +29,9 @@ describe 'postfix', :type => :class do
         it { should contain_file('postfix_config').without_content(
           %r{^relayhost =}
         ) }
+        it { should contain_file('postfix_config').with_content(
+          %r{^daemon_directory = #{os['expectations']['daemon_directory']}$}
+        ) }
       end
 
       describe 'when removing sendmail' do

@@ -40,14 +40,16 @@ $osmash.supported.map! do | os |
       'sendmail_ensure'  => 'purged',
       'package'          => 'postfix',
       'service'          => 'postfix',
-      'config_file'      => '/etc/postfix/main.cf'
+      'config_file'      => '/etc/postfix/main.cf',
+      'daemon_directory' => '/usr/lib/postfix'
     } )
   when 'RedHat'
     expectations.merge!( {
       'sendmail_ensure'  => 'absent',
       'package'          => 'postfix',
       'service'          => 'postfix',
-      'config_file'      => '/etc/postfix/main.cf'
+      'config_file'      => '/etc/postfix/main.cf',
+      'daemon_directory' => '/usr/libexec/postfix'
     } )
   end
 
