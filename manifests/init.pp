@@ -37,11 +37,6 @@ class postfix (
 
   if $remove_sendmail {
 
-    service{$postfix::params::sendmail_service:
-      ensure => 'stopped',
-      before => Package[$postfix::params::sendmail_package]
-    }
-
     # sendmail-cf must be uninstalled first
     package{$postfix::params::sendmailcf_package:
       ensure => $postfix::params::sendmail_ensure,
