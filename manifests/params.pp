@@ -47,4 +47,5 @@ class postfix::params{
   $sendmail_package   = 'sendmail'
   $sendmailcf_package = 'sendmail-cf'
   $sendmail_service   = 'sendmail'
+  $inet_interfaces    = 'localhost'
 }
