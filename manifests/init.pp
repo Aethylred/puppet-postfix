@@ -34,6 +34,7 @@ class postfix (
   $relayhost        = undef,
   $relayhost_port   = undef,
   $daemon_directory = $::postfix::params::daemon_directory,
+  $inet_interfaces  = $::postfix::params::inet_interfaces,
 ) inherits postfix::params {
 
   if $remove_sendmail {

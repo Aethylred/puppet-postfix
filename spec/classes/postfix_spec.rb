@@ -89,6 +89,15 @@ describe 'postfix', :type => :class do
         ) }
       end
 
+      describe 'when setting inet_interfaces' do
+        let :params do
+          { :inet_interfaces => 'all' }
+        end
+        it { should contain_file('postfix_config').with_content(
+          %r{^inet_interfaces = all$}
+        ) }
+      end
+
     end
   end
   
