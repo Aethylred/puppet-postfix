@@ -24,14 +24,14 @@
 class postfix::params{
   # Set OS family specific variables here, and test for supported OS families.
   case $::osfamily{
-    Debian: {
+    /Debian/: {
       $sendmail_ensure  = 'purged'
       $package          = 'postfix'
       $service          = 'postfix'
       $config_file      = '/etc/postfix/main.cf'
       $daemon_directory = '/usr/lib/postfix'
     }
-    RedHat: {
+    /RedHat/: {
       $sendmail_ensure  = 'absent'
       $package          = 'postfix'
       $service          = 'postfix'
