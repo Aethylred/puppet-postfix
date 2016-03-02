@@ -33,6 +33,7 @@ class postfix (
   $mydestination    = undef,
   $relayhost        = undef,
   $relayhost_port   = undef,
+  $mynetworks       = undef,
   $daemon_directory = $::postfix::params::daemon_directory,
   $inet_interfaces  = $::postfix::params::inet_interfaces,
 ) inherits postfix::params {
