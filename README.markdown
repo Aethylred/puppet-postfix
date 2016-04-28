@@ -43,6 +43,7 @@ class {'postfix':
 * `relayhost_port` This sets the port for the relay host specified with the `relayhost` parameter. The default is `undef` which leaves the port specifier off the end of the relayhost setting. This parameter does nothing if the `relayhost` parameter is not set.
 * `daemon_directory` Sets the directory with Postfix support programs and daemon programs are installed. The default is specific for each operating system. It's _not_ recommended that this parameter be changed.
 * `inet_interfaces` Sets the network interface for postfix to bind do. The default value is `localhost`
+* `inet_protocols` Sets the network internet protocol for postfix to utilise. The default value is `all`
 
 # Attribution
 
