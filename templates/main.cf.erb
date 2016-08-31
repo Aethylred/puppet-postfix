@@ -103,6 +103,42 @@ mail_owner = postfix
 myorigin = <%= @myorigin %>
 <%- end -%>
 
+# Opportunistic TLS
+# 
+# At the "may" TLS security level, TLS encryption is opportunistic.
+# The SMTP transaction is encrypted if the STARTTLS ESMTP feature is
+# supported by the server. Otherwise, messages are sent in the clear.
+# Opportunistic TLS can be configured by setting
+# "smtp_tls_security_level = may". For LMTP, use the corresponding
+# "lmtp_" parameter.
+# 
+# The "smtp_tls_ciphers" and "smtp_tls_protocols" configuration
+# parameters (Postfix ≥ 2.6) provide control over the cipher grade
+# and protocols used with opportunistic TLS. With earlier Postfix
+# releases, opportunistic TLS always uses the cipher grade "export"
+# and enables all protocols.
+# 
+# With opportunistic TLS, mail delivery continues even if the server
+# certificate is untrusted or bears the wrong name. When the TLS
+# handshake fails for an opportunistic TLS session, rather than give
+# up on mail delivery, the Postfix SMTP client retries the
+# transaction with TLS disabled. Trying an unencrypted connection
+# makes it possible to deliver mail to sites with non-interoperable
+# server TLS implementations.
+# 
+# Opportunistic encryption is never used for LMTP over UNIX-domain
+# sockets. The communications channel is already confidential without
+# TLS, so the only potential benefit of TLS is authentication. Do
+# not configure opportunistic TLS for LMTP deliveries over UNIX-domain
+# sockets. Only configure TLS for LMTP over UNIX-domain sockets at
+# the encrypt security level or higher. Attempts to configure
+# opportunistic encryption of LMTP sessions will be ignored with a
+# warning written to the mail logs.
+# 
+# You can enable opportunistic TLS just for selected destinations.
+# With the Postfix TLS policy table, specify the "may" security level.
+smtp_tls_security_level = may
+
 # RECEIVING MAIL
 
 # The inet_interfaces parameter specifies the network interface
