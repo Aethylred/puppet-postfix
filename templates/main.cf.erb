@@ -41,7 +41,7 @@ command_directory = /usr/sbin
 # daemon programs (i.e. programs listed in the master.cf file). This
 # directory must be owned by root.
 #
-<% if @daemon_directory %>
+<% if @enable_daemon_directory == true %>
 daemon_directory = <%= @daemon_directory %>
 <% end %>
 

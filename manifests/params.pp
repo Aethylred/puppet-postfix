@@ -42,7 +42,12 @@ class postfix::params{
       fail("The postfix module does not support the ${::osfamily} family of operating systems.")
     }
   }
-  
+  if $::lsbdistcodename == 'xenial' {
+    $enable_daemon_directory = false
+  }else{
+    $enable_daemon_directory = true
+  }
+
   # Set OS independent varibles here
   $sendmail_package   = 'sendmail'
   $sendmailcf_package = 'sendmail-cf'

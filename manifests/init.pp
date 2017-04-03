@@ -28,14 +28,15 @@
 
 # [Remember: No empty lines between comments and class definition]
 class postfix (
-  $remove_sendmail  = undef,
-  $myorigin         = undef,
-  $mydestination    = undef,
-  $relayhost        = undef,
-  $relayhost_port   = undef,
-  $daemon_directory = $::postfix::params::daemon_directory,
-  $inet_interfaces  = $::postfix::params::inet_interfaces,
-  $inet_protocols   = $::postfix::params::inet_protocols,
+  $remove_sendmail         = undef,
+  $myorigin                = undef,
+  $mydestination           = undef,
+  $relayhost               = undef,
+  $relayhost_port          = undef,
+  $daemon_directory        = $::postfix::params::daemon_directory,
+  $inet_interfaces         = $::postfix::params::inet_interfaces,
+  $inet_protocols          = $::postfix::params::inet_protocols,
+  $enable_daemon_directory = $::postfix::params::enable_daemon_directory
 ) inherits postfix::params {
 
   if $remove_sendmail {
@@ -75,5 +76,4 @@ class postfix (
       File['postfix_config']
     ]
   }
-
 }
