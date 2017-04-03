@@ -41,7 +41,9 @@ command_directory = /usr/sbin
 # daemon programs (i.e. programs listed in the master.cf file). This
 # directory must be owned by root.
 #
+<% if @daemon_directory %>
 daemon_directory = <%= @daemon_directory %>
+<% end %>
 
 # The data_directory parameter specifies the location of Postfix-writable
 # data files (caches, random numbers). This directory must be owned
