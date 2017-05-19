@@ -561,6 +561,10 @@ alias_database = hash:/etc/aliases
 # For details, see "man header_checks".
 #
 #header_checks = regexp:/etc/postfix/header_checks
+<% if @header_checks -%>
+header_checks = regexp:/etc/postfix/header_checks
+local_header_rewrite_clients = static:all
+<% end -%>
 
 # FAST ETRN SERVICE
 #

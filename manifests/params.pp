@@ -42,6 +42,9 @@ class postfix::params{
       fail("The postfix module does not support the ${::osfamily} family of operating systems.")
     }
   }
+
+  $header_checks_file = '/etc/postfix/header_checks'
+
   if $::lsbdistcodename == 'xenial' {
     $enable_daemon_directory = false
   }else{
