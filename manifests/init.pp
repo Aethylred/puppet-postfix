@@ -4,6 +4,12 @@
 #
 # Parameters:
 #
+# [*header_checks*]
+#   If not undef, sets the header_checks field in main.cfg to
+#    regexp:/etc/postfix/header_checks
+#   It populates the header_checks file with the contents of this string.
+#   Default: undef
+#
 # Actions:
 #
 # Requires:
@@ -28,13 +34,16 @@
 
 # [Remember: No empty lines between comments and class definition]
 class postfix (
-  $remove_sendmail  = undef,
-  $myorigin         = undef,
-  $mydestination    = undef,
-  $relayhost        = undef,
-  $relayhost_port   = undef,
-  $daemon_directory = $::postfix::params::daemon_directory,
-  $inet_interfaces  = $::postfix::params::inet_interfaces,
+  $remove_sendmail         = undef,
+  $myorigin                = undef,
+  $mydestination           = undef,
+  $relayhost               = undef,
+  $relayhost_port          = undef,
+  $daemon_directory        = $::postfix::params::daemon_directory,
+  $inet_interfaces         = $::postfix::params::inet_interfaces,
+  $inet_protocols          = $::postfix::params::inet_protocols,
+  $enable_daemon_directory = $::postfix::params::enable_daemon_directory,
+  $header_checks           = undef,
 ) inherits postfix::params {
 
   if $remove_sendmail {
@@ -59,6 +68,14 @@ class postfix (
     ],
   }
 
+  if $header_checks {
+    file{$postfix::params::header_checks_file:
+      ensure  => file,
+      content => $header_checks,
+      before  => File['postfix_config'],
+    }
+  }
+
   file{'postfix_config':
     ensure  => 'file',
     path    => $postfix::params::config_file,
@@ -74,5 +91,4 @@ class postfix (
       File['postfix_config']
     ]
   }
-
 }

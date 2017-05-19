@@ -41,7 +41,9 @@ command_directory = /usr/sbin
 # daemon programs (i.e. programs listed in the master.cf file). This
 # directory must be owned by root.
 #
+<% if @enable_daemon_directory == true %>
 daemon_directory = <%= @daemon_directory %>
+<% end %>
 
 # The data_directory parameter specifies the location of Postfix-writable
 # data files (caches, random numbers). This directory must be owned
@@ -121,7 +123,7 @@ myorigin = <%= @myorigin %>
 inet_interfaces = <%= @inet_interfaces %>
 
 # Enable IPv4, and IPv6 if supported
-inet_protocols = all
+inet_protocols = <%= @inet_protocols %>
 
 # The proxy_interfaces parameter specifies the network interface
 # addresses that this mail system receives mail on by way of a
@@ -559,6 +561,10 @@ alias_database = hash:/etc/aliases
 # For details, see "man header_checks".
 #
 #header_checks = regexp:/etc/postfix/header_checks
+<% if @header_checks -%>
+header_checks = regexp:/etc/postfix/header_checks
+local_header_rewrite_clients = static:all
+<% end -%>
 
 # FAST ETRN SERVICE
 #
