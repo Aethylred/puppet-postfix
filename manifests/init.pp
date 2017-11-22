@@ -36,6 +36,7 @@ class postfix (
   $daemon_directory = $::postfix::params::daemon_directory,
   $inet_interfaces  = $::postfix::params::inet_interfaces,
   $inet_protocols   = $::postfix::params::inet_protocols,
+  $masquerade_domains = $hostname,
 ) inherits postfix::params {
 
   if $remove_sendmail {
