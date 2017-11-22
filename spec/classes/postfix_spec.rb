@@ -24,7 +24,7 @@ describe 'postfix', :type => :class do
           %r{^myorigin = }
         ) }
         it { should contain_file('postfix_config').with_content(
-          %r{^mydestination = \$myhostname, localhost.\$mydomain, localhost$}
+          %r{^mydestination = $myhostname, localhost.$mydomain, localhost$}
         ) }
         it { should contain_file('postfix_config').without_content(
           %r{^relayhost =}
