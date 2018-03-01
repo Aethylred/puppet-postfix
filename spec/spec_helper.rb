@@ -33,7 +33,8 @@ $osmash.supported.map! do | os |
     'sendmail_package'   => 'sendmail',
     'sendmailcf_package' => 'sendmail-cf',
     'sendmail_service'   => 'sendmail',
-    'inet_interfaces'    => 'localhost'
+    'inet_interfaces'    => 'localhost',
+    'inet_protocols'     => 'all'
   }
   case os['osfamily']
   when 'Debian'

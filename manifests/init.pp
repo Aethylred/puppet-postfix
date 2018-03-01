@@ -35,6 +35,9 @@ class postfix (
   $relayhost_port   = undef,
   $daemon_directory = $::postfix::params::daemon_directory,
   $inet_interfaces  = $::postfix::params::inet_interfaces,
+  $inet_protocols   = $::postfix::params::inet_protocols,
+  $masquerade_domains = $hostname,
+  $virtual_root     = false,
 ) inherits postfix::params {
 
   if $remove_sendmail {
@@ -75,4 +78,18 @@ class postfix (
     ]
   }
 
+  if $virtual_root {
+    file { '/etc/postfix/virtual':
+      ensure  => present,
+      content => 'root root@localhost',
+      require => Package['postfix']
+    }
+
+    exec { 'rebuild.virtual.db':
+      command     => '/sbin/postmap /etc/postfix/virtual',
+      subscribe   => File['/etc/postfix/virtual'],
+      refreshonly => true,
+      notify      => Service['postfix']
+    }
+  }
 }

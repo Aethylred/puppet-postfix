@@ -24,7 +24,7 @@ describe 'postfix', :type => :class do
           %r{^myorigin = }
         ) }
         it { should contain_file('postfix_config').with_content(
-          %r{^mydestination = \$myhostname, localhost.\$mydomain, localhost$}
+          %r{^mydestination = $myhostname, localhost.$mydomain, localhost$}
         ) }
         it { should contain_file('postfix_config').without_content(
           %r{^relayhost =}
@@ -95,6 +95,15 @@ describe 'postfix', :type => :class do
         end
         it { should contain_file('postfix_config').with_content(
           %r{^inet_interfaces = all$}
+        ) }
+      end
+
+      describe 'when setting inet_protocols' do
+        let :params do
+          { :inet_protocols => 'all' }
+        end
+        it { should contain_file('postfix_config').with_content(
+            %r{^inet_protocols = all$}
         ) }
       end
 
