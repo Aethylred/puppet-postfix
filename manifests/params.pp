@@ -23,7 +23,7 @@
 # [Remember: No empty lines between comments and class definition]
 class postfix::params{
   # Set OS family specific variables here, and test for supported OS families.
-  case $::osfamily{
+  case $facts['os']['family']{
     /Debian/: {
       $sendmail_ensure  = 'purged'
       $package          = 'postfix'
@@ -39,10 +39,10 @@ class postfix::params{
       $daemon_directory = '/usr/libexec/postfix'
     }
     default: {
-      fail("The postfix module does not support the ${::osfamily} family of operating systems.")
+      fail("The postfix module does not support the ${facts['os']['family']} family of operating systems.")
     }
   }
-  
+
   # Set OS independent varibles here
   $sendmail_package   = 'sendmail'
   $sendmailcf_package = 'sendmail-cf'
