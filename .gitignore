@@ -31,3 +31,4 @@ _ReSharper*/
 .vagrant/
 pkg/
 *~
+/.idea/
