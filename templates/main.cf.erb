@@ -166,14 +166,14 @@ inet_protocols = <%= @inet_protocols %>
 #
 # See also below, section "REJECTING MAIL FOR UNKNOWN LOCAL USERS".
 #
-#mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
-#mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain,
-#	mail.$mydomain, www.$mydomain, ftp.$mydomain
 <%- if @mydestination -%>
 mydestination = <%= @mydestination %>
 <%- else -%>
 mydestination = $myhostname, localhost.$mydomain, localhost
 <%- end -%>
+#mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+#mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain,
+#	mail.$mydomain, www.$mydomain, ftp.$mydomain
 
 # REJECTING MAIL FOR UNKNOWN LOCAL USERS
 #
@@ -478,6 +478,8 @@ alias_database = hash:/etc/aliases
 # the main.cf file, otherwise the SMTP server will reject mail for    
 # non-UNIX accounts with "User unknown in local recipient table".
 #
+# Cyrus IMAP over LMTP. Specify ``lmtpunix      cmd="lmtpd"
+# listen="/var/imap/socket/lmtp" prefork=0'' in cyrus.conf.
 #mailbox_transport = lmtp:unix:/var/lib/imap/socket/lmtp
 
 # If using the cyrus-imapd IMAP server deliver local mail to the IMAP
@@ -500,7 +502,8 @@ alias_database = hash:/etc/aliases
 # how many simultaneous LMTP sessions will be permitted to the Cyrus
 # message store. 
 #
-# To use the old cyrus deliver program you have to set:
+# Cyrus IMAP via command line. Uncomment the "cyrus...pipe" and
+# subsequent line in master.cf.
 #mailbox_transport = cyrus
 
 # The fallback_transport specifies the optional transport in master.cf
@@ -685,10 +688,16 @@ manpage_directory = /usr/share/man
 # sample_directory: The location of the Postfix sample configuration files.
 # This parameter is obsolete as of Postfix 2.1.
 #
-sample_directory = /usr/share/doc/postfix-2.6.6/samples
+sample_directory = /usr/share/doc/postfix-2.10.1/samples
 
 # readme_directory: The location of the Postfix README files.
 #
-readme_directory = /usr/share/doc/postfix-2.6.6/README_FILES
+readme_directory = /usr/share/doc/postfix-2.10.1/README_FILES
+
+# smtpd_forbid_bare_newline: disallow bare newline
+#
+#smtpd_forbid_bare_newline = yes
+#smtpd_forbid_bare_newline_exclusions = $mynetworks
 
 masquerade_domains = <%= @masquerade_domains %>
+
